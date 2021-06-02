@@ -36,7 +36,7 @@ if($type === "update"){
 
   //Faz upload da imagem
   if(isset($_FILES["image"]) && !empty($_FILES["image"]["temp_name"])){
-    print_r($_FILES); exit;
+    //print_r($_FILES); exit;
 
     $image = $_FILES["image"];
 
