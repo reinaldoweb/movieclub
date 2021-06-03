@@ -24,7 +24,7 @@ if($userData->image == ""){
   <form action="<?=$BASE_URL?>user_process.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="type" value="update">
 
-  <div class="row">
+    <div class="row">
     <div class="col-md-4">
       <h1><?=$fullName?></h1>
       <p class="page-description">Altere seus dados no formulário abaixo:</p>
@@ -52,7 +52,7 @@ if($userData->image == ""){
       
         <div class="form-group">
             <label for="image">Foto</label>
-             <input type="file" class="form-control-file" name="image" placeholder="Insira sua foto">
+             <input type="file" class="form-control-file" name="image">    
       </div>
 
       <div class="form-group">
@@ -67,18 +67,18 @@ if($userData->image == ""){
     <div class="col-md-4">
       <h2>Alterar a senha:</h2>
       <p class="opage-description">Digite a nova senha e confirme.</p>
-      <form action="<?= $BASE_URL?>user_process.php" method="POST">
+      <form action="<?=$BASE_URL?>user_process.php" method="POST">
         <input type="hidden" name="type" value="changepassword">
 
       <div class="form-group">
       <label for="password">E-mail</label>
-      <input type="password"  class="form-control" id="password" name="password" placeholder="Digite sua nova senha">
+      <input type="password"  class="form-control" name="password" placeholder="Digite sua nova senha">
       </div>
       <div class="form-group">
       <label for="confirmpassword">Confirme sua senha</label>
-      <input type="password"  class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm sua nova senha">
+      <input type="password"  class="form-control" name="confirmpassword" placeholder="Confirm sua nova senha">
       </div>
-        <input type="submit" class="btn card-btn" value="Confirme sua senha">
+        <input type="submit" class="btn card-btn" value="Alterar sua senha">
       </form>
     </div>
     </div>

@@ -14,7 +14,8 @@ $userDao = new UserDAO($conn, $BASE_URL);
 $type = filter_input(INPUT_POST, "type");
   
 //Atualizar usuario
-if($type === "update"){
+if($type == "update"){
+
   // Resgata dados do usuario
   $userData = $userDao->verifyToken();
 
@@ -26,17 +27,15 @@ if($type === "update"){
 
   //Criar um novo objeto de usuario
   $user = new User();
-
   //Preencher os dados do usuario
   $userData->name = $name;
   $userData->lastname = $lastname;
   $userData->email = $email;
   $userData->bio = $bio;
 
-
   //Faz upload da imagem
   if(isset($_FILES["image"]) && !empty($_FILES["image"]["temp_name"])){
-    //print_r($_FILES); exit;
+   print_r($_FILES); die;
 
     $image = $_FILES["image"];
 
@@ -71,10 +70,28 @@ if($type === "update"){
 
   //Atualiza a senha do usuario
 }else if($type === "changepassword"){
+  //Receber dados do post
+  $password = filter_input(INPUT_POST, "password");
+  $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
 
+  //Resgata dados do usuario
+  $userData = $userDao->verifyToken();
+  $id=$userData->id;
+
+  if ($password == $confirmpassword) {
+    //Criar um novo objeto de usuário
+    $user = new User();
+    $finalPassword = $user->generatePassword($password);
+    $user->password = $finalPassword;
+    $user->id = $id;
+
+    $userDao->changePassword($user);
+
+  }else{
+    $message->setMessage("As senhas não são iguais.", "error", "back");
+  }
 
 }else{
-
 $message->setMessage("Informações inválidas", "error", "index.php");
 }
 

@@ -19,25 +19,21 @@ if($type === "register"){
   $lastname = filter_input(INPUT_POST, "lastname");
   $email = filter_input(INPUT_POST, "email");
   $password = filter_input(INPUT_POST, "password");
-  $confirmapassword = filter_input(INPUT_POST, "confirmpassword");
-
+  $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
 
   //Verificação de  dados mínimos
-
   if($name && $lastname && $email && $password){
 
     //Verificar se as senhas são iguais
-    if ($password === $confirmapassword) {
+    if ($password === $confirmpassword) {
       
       //Verificar se e-mail já está cadastrado no sistema
-
       if ($userDao->findByEmail($email) === false) {
-
             $user = new User();
 
             //Criação de token e senha
             $userToken = $user->generateToken();
-            $finalPassword = $user->generatorPassword($password);
+            $finalPassword = $user->generatePassword($password);
 
             $user->name = $name;
             $user->lastname = $lastname;
@@ -59,8 +55,6 @@ if($type === "register"){
 
       $message->setMessage("Senhas não são iguias", "error", "back");
     }
-
-
   }else{
 
     //Envia mensagem de erro dos dados faltantes
